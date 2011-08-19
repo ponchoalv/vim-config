@@ -1,0 +1,45 @@
+[submodule "bundle/fugitive"]
+	path = bundle/fugitive
+	url = git://github.com/tpope/vim-fugitive.git
+[submodule "bundle/dirdo"]
+	path = bundle/dirdo
+	url = git://github.com/ornicar/vim-dirdo.git
+[submodule "bundle/lusty"]
+	path = bundle/lusty
+	url = git://github.com/sjbach/lusty.git
+[submodule "bundle/phpfolding"]
+	path = bundle/phpfolding
+	url = git://github.com/vim-scripts/phpfolding.vim.git
+[submodule "ack.vim"]
+	path = bundle/ack
+	url = git://github.com/mileszs/ack.vim.git
+[submodule "bundle/commandt"]
+	path = bundle/commandt
+	url = git://github.com/wincent/Command-T.git
+[submodule "bundle/markdown"]
+	path = bundle/markdown
+	url = git://github.com/tpope/vim-markdown.git
+[submodule "bundle/surround"]
+	path = bundle/surround
+	url = git://github.com/tpope/vim-surround.git
+[submodule "bundle/snipmate"]
+	path = bundle/snipmate
+	url = https://github.com/msanders/snipmate.vim.git
+[submodule "bundle/php-namespace"]
+	path = bundle/php-namespace
+	url = git://github.com/arnaud-lb/vim-php-namespace.git
+[submodule "bundle/align"]
+	path = bundle/align
+	url = https://github.com/pix/vim-align.git
+[submodule "bundle/nerdtree"]
+	path = bundle/nerdtree
+	url = https://github.com/scrooloose/nerdtree.git
+[submodule "bundle/tcomment"]
+	path = bundle/tcomment
+	url = https://github.com/tomtom/tcomment_vim.git
+[submodule "bundle/delimitmate"]
+	path = bundle/delimitmate
+	url = http://github.com/Raimondi/delimitMate.git
+[submodule "bundle/zencoding"]
+	path = bundle/zencoding
+	url = https://github.com/mattn/zencoding-vim.git

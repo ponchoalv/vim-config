@@ -1,0 +1,265 @@
+"
+" General behavior
+"
+
+set nocompatible                " Use vim defaults
+let mapleader=","               " Use the comma as leader
+set history=1000                " Increase history
+set nobackup                    " Do not backup files on overwrite
+set directory=~/.vim/tmp        " Directory to put swap file
+
+"
+" Coloration
+"
+
+set t_Co=256    " use 256 colors
+colorscheme jellybeans
+
+if has('gui_running')
+    set guifont=Monaco\ 12   " Mac OS X 10.5 default monospace font
+endif
+
+"
+" Tabs & Indentation
+"
+
+set expandtab     " converts tabs to spaces
+set autoindent    " automatically copy indentation from previous line
+set smartindent   " indents one extra level according to current syntax
+" indents with tab = 4 spaces
+set tabstop=4
+set shiftwidth=4
+" fixme: should use softtabstop=4 instead of expandtab and setting tabstop
+
+" define shortcuts ',2' and ',4' to change indentation easily:
+nmap <leader>2 :set tabstop=2<cr>:set shiftwidth=2<cr>
+nmap <leader>4 :set tabstop=4<cr>:set shiftwidth=4<cr>
+
+"
+" Interface
+"
+
+set ls=2                            " Always show the status line
+set ruler                           " Show cursor position
+set number                          " Show line numbers
+set notitle                         " Don't show title in console title bar
+set novisualbell                    " Don't use the visual bell
+set wrap                            " Wrap lineource $MYVIMRC
+set showmatch                       " Show matching (){}[]
+
+if (has('gui_running'))
+    set guioptions-=m               " Remove menu bar
+    set guioptions-=T               " Remove toolbar
+    set guioptions-=r               " Remove right-hand scroll bar
+endif
+
+" Redraw screen
+nmap <leader>r :redraw!<cr>
+
+" Clear search highlight
+nmap <silent> <leader>/ :let @/=""<cr>
+
+" Change cursor color depending on the mode
+if &term =~ "xterm"
+    let &t_SI = "\<Esc>]12;orange\x7"
+    let &t_EI = "\<Esc>]12;white\x7"
+endif
+
+" Change statusbar color depending on the mode
+au InsertEnter * hi StatusLine ctermfg=226 ctermbg=16
+au InsertLeave * hi StatusLine ctermfg=7 ctermfg=0
+
+"
+" Command line
+"
+
+set wildmenu                        " Better completion
+set wildmode=list:longest           " BASH style completion
+
+"
+" Navigation & Viewport
+"
+
+set scrolloff=5       " at least 5 lines of context when moving cursor
+set sidescrolloff=5   " and 5 columns of contet
+set hidden                          " Allow switch beetween modified buffers
+set backspace=indent,eol,start      " Improve backspacing
+
+"copy
+vmap <F7> "+ygv"zy`>
+"paste (Shift-F7 to paste after normal cursor, Ctrl-F7 to paste over visual selection)
+nmap <F7> "zgP
+nmap <S-F7> "zgp
+imap <F7> <C-r><C-o>z
+vmap <C-F7> "zp`]
+cmap <F7> <C-r><C-o>z
+"copy register
+
+autocmd FocusGained * let @z=@+
+
+" tabbing
+map <silent><A-Right> :tabnext<CR>
+map <silent><A-Left> :tabprevious<CR>
+map <silent><A-x> :tabclose<CR>
+
+" Enable Code Folding
+set foldenable
+set foldmethod=syntax
+
+"http://vim.wikia.com/wiki/Make_Vim_completion_popup_menu_work_just_like_in_an_IDE
+set completeopt=longest,menuone
+
+"Bubble single lines (kicks butt)
+"http://vimcasts.org/episodes/bubbling-text/
+nmap <C-Up> ddkP
+nmap <C-Down> ddp
+
+"Bubble multiple lines
+vmap <C-Up> xkP`[V`]
+vmap <C-Down> xp`[V`]
+
+set lazyredraw " do not redraw while running macros (much faster) (LazyRedraw)
+set vb " blink instead beep
+
+
+" Restore cursor position
+au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
+
+" Faster viewport scrolling
+nnoremap <C-e> 3<C-e>
+nnoremap <C-y> 3<C-y>
+nnoremap <C-j> 3j
+nnoremap <C-k> 3k
+
+"
+" Chars
+"
+
+set encoding=utf-8
+
+"
+" Syntax & File types
+"
+
+syntax enable                       " Enable syntax highlighting
+filetype on           " enable file type detection
+filetype plugin on    " load plugins specific to file type
+filetype indent on    " ... and indentation too
+
+" Use the htmljinja syntax for twig files
+au BufNewFile,BufRead *.twig setf htmljinja
+
+" Highlight trailing whitespaces
+highlight ExtraWhitespace ctermbg=red guibg=red
+match ExtraWhitespace /\s\+$/
+autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
+autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
+autocmd InsertLeave * match ExtraWhitespace /\s\+$/
+autocmd BufWinLeave * call clearmatches()
+
+" automatically remove trailing whitespace before write
+function! StripTrailingWhitespace()
+  normal mZ
+  %s/\s\+$//e
+  if line("'Z") != line(".")
+    echo "Stripped whitespace\n"
+  endif
+  normal `Z
+endfunction
+autocmd BufWritePre *.php,*.yml,*.xml,*.js,*.html,*.css :call StripTrailingWhitespace()
+
+map <F2> :call StripTrailingWhitespace()<CR>
+map! <F2> :call StripTrailingWhitespace()<CR>
+
+"
+" Some sugar on my Keyboard
+"
+
+" in insert mode (imap), some useful shortcuts.
+imap jj ->
+imap kk \
+imap hh $this->
+
+"Set Search options highlight, and wrap search
+set hls is " highlight search text throughout the document.
+set wrapscan " wrap the scan around the document
+set ic "ignore case in search
+
+" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+"
+"      PLUGINS CONFIGURATION
+"
+" ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+
+
+" Load bundles help & code
+silent! call pathogen#helptabs()
+silent! call pathogen#runtime_append_all_bundles()
+
+"
+" Ctags
+"
+
+" Explore tags for the word under the cursor
+map <C-l> <C-]>
+" Back to previous location after browsing tags
+map <C-h> <C-T>
+" Jump to next tag match
+map ]t :tnext<CR>
+" Jump to previous tag match
+map [t :tprevious<CR>
+" Open tag command
+map <C-T> :tag
+let g:Tlist_Ctags_Cmd = 'ctags'
+" Rebuild tag index
+nnoremap <silent> <C-F7> :silent !ctags -h ".php" --PHP-kinds=+cf --recurse --exclude="*/cache/*" --exclude="*/logs/*" --exclude="*/data/*" --exclude="\.git" --exclude="\.svn" --languages=PHP &<cr>:CommandTFlush<cr>
+" TagList
+let Tlist_Show_One_File = 1
+let Tlist_Sort_Type = "name"
+nnoremap <silent> <F9> :TlistToggle<CR>
+
+"Delimitmate
+au FileType * let b:delimitMate_autoclose = 1
+
+
+"
+" Lusty
+"
+
+map <leader>lp :LustyJugglePrevious<cr>
+let g:LustyJugglerShowKeys = 0
+
+"
+" Command-T
+"
+
+let g:CommandTMaxFiles=30000        " Increase cache size
+map <leader>t :CommandT<cr>
+
+"
+" Ack
+"
+
+let g:ackprg = 'ack-grep -H --nocolor --nogroup --column --type-add html=twig --ignore-dir=cache --ignore-dir=logs'
+nmap <leader>a :Ack
+
+"
+" Snipmate
+"
+
+let g:snips_author = 'Antoine Hérault <antoine.herault@gmail.com>'
+
+
+" nerdtree commentor
+map <Leader>c ,c
+map <Leader>e <C-e>
+
+" toggle NERDTree
+map <F4> :NERDTreeToggle<CR>
+
+"autocomplete php
+autocmd FileType php set omnifunc=phpcomplete#CompletePHP
+autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
+
