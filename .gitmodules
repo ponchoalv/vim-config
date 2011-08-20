@@ -43,3 +43,6 @@
 [submodule "bundle/zencoding"]
 	path = bundle/zencoding
 	url = https://github.com/mattn/zencoding-vim.git
+[submodule "bundle/vim-log"]
+	path = bundle/vim-log
+	url = git://github.com/AD7six/vim-activity-log.git
