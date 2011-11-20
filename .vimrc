@@ -7,16 +7,47 @@ let mapleader=","               " Use the comma as leader
 set history=1000                " Increase history
 set nobackup                    " Do not backup files on overwrite
 set directory=~/.vim/tmp        " Directory to put swap file
+set autochdir
+"" not let all windows keep the same height/width
+set noequalalways
+
 
 "
 " Coloration
 "
 
+
 set t_Co=256    " use 256 colors
-colorscheme jellybeans
+"colorscheme jellybeans
+
+
+
+let g:solarized_termcolors=256
+
+
+" set background='dark'
+
+colorscheme solarized
+
+set background=dark
+" Toggle dark/light background for solarized
+nmap <leader>tb :call ToggleSolarized()<CR>
+function! ToggleSolarized()
+    if &background == "dark"
+       colorscheme solarized
+         set background=light
+    else
+        colorscheme solarized
+        set background=dark
+    endif
+endfunc
+
+
 
 if has('gui_running')
     set guifont=Monaco\ 12   " Mac OS X 10.5 default monospace font
+    set lines=40
+    set columns=120
 endif
 
 "
@@ -46,6 +77,28 @@ set notitle                         " Don't show title in console title bar
 set novisualbell                    " Don't use the visual bell
 set wrap                            " Wrap lineource $MYVIMRC
 set showmatch                       " Show matching (){}[]
+set showbreak=...
+set linebreak
+set formatoptions=qrn1
+
+" Display invisible characters.
+" " Use the same symbols as TextMate for tabstops and EOLs
+
+nmap <leader>tl :set list!<CR>
+set nolist
+set listchars=tab:▸\ ,eol:¬,trail:·,extends:↷,precedes:↶
+
+"" Disable AutoClose plugin on markdown files"
+"autocmd FileType * :AutoCloseOn
+"autocmd FileType markdown :AutoCloseOff
+"autocmd FileType markdown :set spell
+
+
+"set listchars=eol:?,tab:>-,trail:~,extends:>,precedes:<
+
+set complete+=k
+" for XSL / CSS - completition works great
+set iskeyword+=-,:
 
 if (has('gui_running'))
     set guioptions-=m               " Remove menu bar
@@ -75,6 +128,13 @@ au InsertLeave * hi StatusLine ctermfg=7 ctermfg=0
 
 set wildmenu                        " Better completion
 set wildmode=list:longest           " BASH style completion
+set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,test/fixtures/*,vendor/gems/*
+
+
+"Set magic on, for regular expressions
+set magic
+
+
 
 "
 " Navigation & Viewport
@@ -106,6 +166,9 @@ map <silent><A-x> :tabclose<CR>
 set foldenable
 set foldmethod=syntax
 
+
+
+
 "http://vim.wikia.com/wiki/Make_Vim_completion_popup_menu_work_just_like_in_an_IDE
 set completeopt=longest,menuone
 
@@ -122,8 +185,6 @@ set lazyredraw " do not redraw while running macros (much faster) (LazyRedraw)
 set vb " blink instead beep
 
 
-" Restore cursor position
-au BufReadPost * if line("'\"") > 0|if line("'\"") <= line("$")|exe("norm '\"")|else|exe "norm $"|endif|endif
 
 " Faster viewport scrolling
 nnoremap <C-e> 3<C-e>
@@ -159,12 +220,12 @@ autocmd BufWinLeave * call clearmatches()
 
 " automatically remove trailing whitespace before write
 function! StripTrailingWhitespace()
-  normal mZ
-  %s/\s\+$//e
-  if line("'Z") != line(".")
-    echo "Stripped whitespace\n"
-  endif
-  normal `Z
+    normal mZ
+    %s/\s\+$//e
+    if line("'Z") != line(".")
+        echo "Stripped whitespace\n"
+    endif
+    normal `Z
 endfunction
 autocmd BufWritePre *.php,*.yml,*.xml,*.js,*.html,*.css :call StripTrailingWhitespace()
 
@@ -259,7 +320,47 @@ map <Leader>e <C-e>
 " toggle NERDTree
 map <F4> :NERDTreeToggle<CR>
 
-"autocomplete php
+" autocomplete php
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 
+"autocomplete coffee script
+autocmd BufWritePost *.coffee silent CoffeeMake! -b | cwindow
+
+au Filetype php exec('set dictionary=/home/alfonso/.vim/syntax/ci-reactor-2.0.dict')
+au Filetype php set complete+=k
+
+"" Disable AutoClose plugin on markdown files"
+"autocmd FileType * :AutoCloseOn
+"autocmd FileType markdown :AutoCloseOff
+"autocmd FileType markdown :set spell
+
+"Funciones
+"
+"" Indent files. Use plugin when filetype is Javascript.
+function! IndentFile()
+    if &filetype == 'javascript'
+        let l = line('.')
+        let c = col('.')
+        call g:Jsbeautify()
+        call cursor(l,c)
+    else
+        let l = line('.')
+        let c = col('.')
+        execute "normal! gg=G"
+        call cursor(l,c)
+    endif
+endfunction
+
+" Reindent Code, strip trailing whitespace and go back to the line the cursor
+" was
+nnoremap <silent> <leader>R :call IndentFile()<CR>:let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
+
+"" Remove the Windows ^M - when the encodings gets messed up
+noremap <Leader>mm mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
+
+"" Clear search highlight
+" nnoremap <leader><space> :noh<CR>
+
+"" Automatically change working dir to current buffer
+set autochdir

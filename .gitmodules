@@ -46,3 +46,18 @@
 [submodule "bundle/vim-log"]
 	path = bundle/vim-log
 	url = git://github.com/AD7six/vim-activity-log.git
+[submodule "bundle/vim-coffee-script"]
+	path = bundle/vim-coffee-script
+	url = git://github.com/kchmck/vim-coffee-script.git
+[submodule "bundle/JavaScript-Indent"]
+	path = bundle/JavaScript-Indent
+	url = git://github.com/vim-scripts/JavaScript-Indent.git
+[submodule "bundle/vim-colors-solarized"]
+	path = bundle/vim-colors-solarized
+	url = git://github.com/altercation/vim-colors-solarized.git
+[submodule "bundle/jslint"]
+	path = bundle/jslint
+	url = https://github.com/hallettj/jslint.vim.git
+[submodule "bundle/jsbeautify"]
+	path = bundle/jsbeautify
+	url = https://github.com/vim-scripts/jsbeautify.git
