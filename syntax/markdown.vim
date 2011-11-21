@@ -1,1 +1,0 @@
-../bundle/markdown/syntax/markdown.vim
