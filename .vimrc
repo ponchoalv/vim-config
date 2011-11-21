@@ -1,3 +1,6 @@
+call pathogen#infect()
+
+
 "
 " General behavior
 "
@@ -256,8 +259,8 @@ set ic "ignore case in search
 
 
 " Load bundles help & code
-silent! call pathogen#helptabs()
-silent! call pathogen#runtime_append_all_bundles()
+" silent! call pathogen#helptabs()
+" silent! call pathogen#runtime_append_all_bundles()
 
 "
 " Ctags
