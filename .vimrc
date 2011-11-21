@@ -46,8 +46,8 @@ endfunc
 
 if has('gui_running')
     set guifont=Monaco\ 12   " Mac OS X 10.5 default monospace font
-    set lines=40
-    set columns=120
+    set lines=35
+    set columns=110
 endif
 
 "
@@ -311,6 +311,8 @@ nmap <leader>a :Ack
 "
 
 let g:snips_author = 'Antoine Hérault <antoine.herault@gmail.com>'
+
+autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 
 
 " nerdtree commentor

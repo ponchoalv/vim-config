@@ -61,3 +61,12 @@
 [submodule "bundle/jsbeautify"]
 	path = bundle/jsbeautify
 	url = https://github.com/vim-scripts/jsbeautify.git
+[submodule "vim-node.js"]
+	path = vim-node.js
+	url = git://github.com/mmalecki/vim-node.js.git
+[submodule "bundle/vim-node"]
+	path = bundle/vim-node
+	url = git://github.com/mmalecki/vim-node.js.git
+[submodule "bundle/vim-jade"]
+	path = bundle/vim-jade
+	url = git://github.com/digitaltoad/vim-jade.git
