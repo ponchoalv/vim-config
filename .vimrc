@@ -48,9 +48,17 @@ endfunc
 
 
 if has('gui_running')
-    set guifont=Monaco\ 12   " Mac OS X 10.5 default monospace font
+    set guifont=Monospace\ 10   " default monospace font
     set lines=35
-    set columns=110
+    set columns=100
+    set guioptions+=m               " Remove menu bar
+    set guioptions-=T               " Remove toolbar
+    set guioptions+=LlRrb
+    set guioptions-=LlRrb
+"    set guioptions+=lrb " Add/Remove right-hand scroll bar
+"    set guioptions-=lrb " Add/Remove right-hand scroll bar
+"    set guioptions-=l " Remove left-hand scroll bar
+
 endif
 
 "
@@ -89,7 +97,7 @@ set formatoptions=qrn1
 
 nmap <leader>tl :set list!<CR>
 set nolist
-set listchars=tab:▸\ ,eol:¬,trail:·,extends:↷,precedes:↶
+" set listchars=tab:▸\ ,eol:¬,trail:·,extends:↷,precedes:↶
 
 "" Disable AutoClose plugin on markdown files"
 "autocmd FileType * :AutoCloseOn
@@ -102,12 +110,6 @@ set listchars=tab:▸\ ,eol:¬,trail:·,extends:↷,precedes:↶
 set complete+=k
 " for XSL / CSS - completition works great
 set iskeyword+=-,:
-
-if (has('gui_running'))
-    set guioptions-=m               " Remove menu bar
-    set guioptions-=T               " Remove toolbar
-    set guioptions-=r               " Remove right-hand scroll bar
-endif
 
 " Redraw screen
 nmap <leader>r :redraw!<cr>
@@ -168,8 +170,6 @@ map <silent><A-x> :tabclose<CR>
 " Enable Code Folding
 set foldenable
 set foldmethod=syntax
-
-
 
 
 "http://vim.wikia.com/wiki/Make_Vim_completion_popup_menu_work_just_like_in_an_IDE
@@ -292,7 +292,8 @@ au FileType * let b:delimitMate_autoclose = 1
 " Lusty
 "
 
-map <leader>lp :LustyJugglePrevious<cr>
+" map <leader>lp :LustyJugglePrevious<cr>
+map <leader>lp :LustyBufferExplorer <cr>
 let g:LustyJugglerShowKeys = 0
 
 "
@@ -332,7 +333,7 @@ autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 "autocomplete coffee script
 autocmd BufWritePost *.coffee silent CoffeeMake! -b | cwindow
 
-au Filetype php exec('set dictionary=/home/alfonso/.vim/syntax/ci-reactor-2.0.dict')
+au Filetype php exec('set dictionary=~/.vim/syntax/ci-reactor-2.0.dict')
 au Filetype php set complete+=k
 
 "" Disable AutoClose plugin on markdown files"
