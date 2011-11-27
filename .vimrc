@@ -28,7 +28,7 @@ set t_Co=256    " use 256 colors
 let g:solarized_termcolors=256
 
 
-" set background='dark'
+"set background='dark'
 
 colorscheme solarized
 
@@ -42,7 +42,7 @@ function! ToggleSolarized()
     else
         colorscheme solarized
         set background=dark
-    endif
+     endif
 endfunc
 
 
@@ -51,7 +51,7 @@ if has('gui_running')
     set guifont=Monospace\ 10   " default monospace font
     set lines=35
     set columns=100
-    set guioptions+=m               " Remove menu bar
+    set guioptions-=m               " Remove menu bar
     set guioptions-=T               " Remove toolbar
     set guioptions+=LlRrb
     set guioptions-=LlRrb
@@ -206,6 +206,7 @@ set encoding=utf-8
 "
 
 syntax enable                       " Enable syntax highlighting
+syntax on
 filetype on           " enable file type detection
 filetype plugin on    " load plugins specific to file type
 filetype indent on    " ... and indentation too
@@ -318,13 +319,12 @@ let g:snips_author = 'Antoine Hérault <antoine.herault@gmail.com>'
 
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 
-
-" nerdtree commentor
-map <Leader>c ,c
-map <Leader>e <C-e>
-
 " toggle NERDTree
 map <F4> :NERDTreeToggle<CR>
+
+" Ejecutar un archivo con nodejs <Shift> + e:
+map <buffer> <S-e> :w<CR>:!/usr/bin/env node % <CR>
+
 
 " autocomplete php
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
