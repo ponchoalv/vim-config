@@ -36,27 +36,27 @@ set background=dark
 " Toggle dark/light background for solarized
 nmap <leader>tb :call ToggleSolarized()<CR>
 function! ToggleSolarized()
-    if &background == "dark"
-       colorscheme solarized
-         set background=light
-    else
-        colorscheme solarized
-        set background=dark
-     endif
+  if &background == "dark"
+    colorscheme solarized
+    set background=light
+  else
+    colorscheme solarized
+    set background=dark
+  endif
 endfunc
 
 
 if has('gui_running')
-    set guifont=Monospace\ 10   " default monospace font
-    set lines=40
-    set columns=120
-    set guioptions-=m               " Remove menu bar
-    set guioptions-=T               " Remove toolbar
-    set guioptions+=LlRrb
-    set guioptions-=LlRrb
-"    set guioptions+=lrb " Add/Remove right-hand scroll bar
-"    set guioptions-=lrb " Add/Remove right-hand scroll bar
-"    set guioptions-=l " Remove left-hand scroll bar
+  set guifont=Monospace\ 11 " default monospace font
+  set lines=40
+  set columns=120
+  set guioptions-=m      " Remove menu bar
+  set guioptions-=T      " Remove toolbar
+  set guioptions+=LlRrb  " Sacar scroll de ambos lados
+  set guioptions-=LlRrb
+  "    set guioptions+=lrb " Add/Remove right-hand scroll bar
+  "    set guioptions-=lrb " Add/Remove right-hand scroll bar
+  "    set guioptions-=l " Remove left-hand scroll bar
 
 endif
 
@@ -114,12 +114,12 @@ set iskeyword+=-,:
 nmap <leader>r :redraw!<cr>
 
 " Clear search highlight
-nmap <silent> <leader>/ :let @/=""<cr>
+" nmap <silent> <leader>/ :let @/=""<cr>
 
 " Change cursor color depending on the mode
 if &term =~ "xterm"
-    let &t_SI = "\<Esc>]12;orange\x7"
-    let &t_EI = "\<Esc>]12;white\x7"
+  let &t_SI = "\<Esc>]12;orange\x7"
+  let &t_EI = "\<Esc>]12;white\x7"
 endif
 
 " Change statusbar color depending on the mode
@@ -223,12 +223,12 @@ autocmd BufWinLeave * call clearmatches()
 
 " automatically remove trailing whitespace before write
 function! StripTrailingWhitespace()
-    normal mZ
-    %s/\s\+$//e
-    if line("'Z") != line(".")
-        echo "Stripped whitespace\n"
-    endif
-    normal `Z
+  normal mZ
+  %s/\s\+$//e
+  if line("'Z") != line(".")
+    echo "Stripped whitespace\n"
+  endif
+  normal `Z
 endfunction
 autocmd BufWritePre *.php,*.yml,*.xml,*.js,*.html,*.css :call StripTrailingWhitespace()
 
@@ -326,10 +326,10 @@ map <buffer><S-e> :w<CR>:!/usr/bin/env node % <CR>
 
 " Tabularize
 " if exists(":Tabularize")
-  nmap <Leader>ji :Tabularize /=<CR>
-  vmap <Leader>ji :Tabularize /=<CR>
-  nmap <Leader>jd :Tabularize /:\zs<CR>
-  vmap <Leader>jd :Tabularize /:\zs<CR>
+nmap <Leader>ji :Tabularize /=<CR>
+vmap <Leader>ji :Tabularize /=<CR>
+nmap <Leader>jd :Tabularize /:\zs<CR>
+vmap <Leader>jd :Tabularize /:\zs<CR>
 " endif
 
 
@@ -343,6 +343,12 @@ autocmd BufWritePost *.coffee silent CoffeeMake! -b | cwindow
 au Filetype php exec('set dictionary=~/.vim/syntax/ci-reactor-2.0.dict')
 au Filetype php set complete+=k
 
+
+" config snipets para django
+"
+autocmd FileType python set ft=python.django " For SnipMate
+autocmd FileType html set ft=htmldjango.html " For SnipMate
+
 "" Disable AutoClose plugin on markdown files"
 "autocmd FileType * :AutoCloseOn
 "autocmd FileType markdown :AutoCloseOff
@@ -352,17 +358,17 @@ au Filetype php set complete+=k
 "
 "" Indent files. Use plugin when filetype is Javascript.
 function! IndentFile()
-    if &filetype == 'javascript'
-        let l = line('.')
-        let c = col('.')
-        call g:Jsbeautify()
-        call cursor(l,c)
-    else
-        let l = line('.')
-        let c = col('.')
-        execute "normal! gg=G"
-        call cursor(l,c)
-    endif
+  if &filetype == 'javascript'
+    let l = line('.')
+    let c = col('.')
+    call g:Jsbeautify()
+    call cursor(l,c)
+  else
+    let l = line('.')
+    let c = col('.')
+    execute "normal! gg=G"
+    call cursor(l,c)
+  endif
 endfunction
 
 " Reindent Code, strip trailing whitespace and go back to the line the cursor
