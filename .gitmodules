@@ -71,3 +71,6 @@
 	path = bundle/vim-jade
 	url = git://github.com/digitaltoad/vim-jade.git
 
+[submodule "bundle/tabular"]
+	path = bundle/tabular
+	url = git://github.com/godlygeek/tabular.git

@@ -323,7 +323,15 @@ autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 map <F4> :NERDTreeToggle<CR>
 
 " Ejecutar un archivo con nodejs <Shift> + e:
-map <buffer> <S-e> :w<CR>:!/usr/bin/env node % <CR>
+map <buffer><leader>e :w<CR>:!/usr/bin/env node % <CR>
+
+" Tabularize
+if exists(":Tabularize")
+  nmap <Leader>a= :Tabularize /=<CR>
+  vmap <Leader>a= :Tabularize /=<CR>
+  nmap <Leader>a: :Tabularize /:\zs<CR>
+  vmap <Leader>a: :Tabularize /:\zs<CR>
+endif
 
 
 " autocomplete php
