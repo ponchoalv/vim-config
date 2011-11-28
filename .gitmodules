@@ -79,3 +79,6 @@
 [submodule "bundle/piv"]
 	path = bundle/piv
 	url = git://github.com/spf13/PIV.git
+[submodule "bundle/vimango"]
+	path = bundle/vimango
+	url = git://github.com/tuxcanfly/ViMango.git
