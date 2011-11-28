@@ -10,9 +10,6 @@
 [submodule "bundle/phpfolding"]
 	path = bundle/phpfolding
 	url = git://github.com/vim-scripts/phpfolding.vim.git
-[submodule "ack.vim"]
-	path = bundle/ack
-	url = git://github.com/mileszs/ack.vim.git
 [submodule "bundle/commandt"]
 	path = bundle/commandt
 	url = git://github.com/wincent/Command-T.git
@@ -70,7 +67,6 @@
 [submodule "bundle/vim-jade"]
 	path = bundle/vim-jade
 	url = git://github.com/digitaltoad/vim-jade.git
-
 [submodule "bundle/tabular"]
 	path = bundle/tabular
 	url = git://github.com/godlygeek/tabular.git
