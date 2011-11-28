@@ -46,11 +46,10 @@ function! ToggleSolarized()
 endfunc
 
 
-
 if has('gui_running')
     set guifont=Monospace\ 10   " default monospace font
-    set lines=35
-    set columns=100
+    set lines=40
+    set columns=120
     set guioptions-=m               " Remove menu bar
     set guioptions-=T               " Remove toolbar
     set guioptions+=LlRrb
@@ -69,8 +68,8 @@ set expandtab     " converts tabs to spaces
 set autoindent    " automatically copy indentation from previous line
 set smartindent   " indents one extra level according to current syntax
 " indents with tab = 4 spaces
-set tabstop=4
-set shiftwidth=4
+set tabstop=2
+set shiftwidth=2
 " fixme: should use softtabstop=4 instead of expandtab and setting tabstop
 
 " define shortcuts ',2' and ',4' to change indentation easily:
@@ -185,7 +184,7 @@ vmap <C-Up> xkP`[V`]
 vmap <C-Down> xp`[V`]
 
 set lazyredraw " do not redraw while running macros (much faster) (LazyRedraw)
-set vb " blink instead beep
+" set vb " blink instead beep
 
 
 
@@ -308,8 +307,8 @@ map <leader>t :CommandT<cr>
 " Ack
 "
 
-let g:ackprg = 'ack-grep -H --nocolor --nogroup --column --type-add html=twig --ignore-dir=cache --ignore-dir=logs'
-nmap <leader>a :Ack
+" let g:ackprg = 'ack-grep -H --nocolor --nogroup --column --type-add html=twig --ignore-dir=cache --ignore-dir=logs'
+" nmap <leader>a :Ack
 
 "
 " Snipmate
@@ -323,15 +322,15 @@ autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 map <F4> :NERDTreeToggle<CR>
 
 " Ejecutar un archivo con nodejs <Shift> + e:
-map <buffer><leader>e :w<CR>:!/usr/bin/env node % <CR>
+map <buffer><S-e> :w<CR>:!/usr/bin/env node % <CR>
 
 " Tabularize
-if exists(":Tabularize")
-  nmap <Leader>a= :Tabularize /=<CR>
-  vmap <Leader>a= :Tabularize /=<CR>
-  nmap <Leader>a: :Tabularize /:\zs<CR>
-  vmap <Leader>a: :Tabularize /:\zs<CR>
-endif
+" if exists(":Tabularize")
+  nmap <Leader>ji :Tabularize /=<CR>
+  vmap <Leader>ji :Tabularize /=<CR>
+  nmap <Leader>jd :Tabularize /:\zs<CR>
+  vmap <Leader>jd :Tabularize /:\zs<CR>
+" endif
 
 
 " autocomplete php
