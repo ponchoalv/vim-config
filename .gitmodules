@@ -82,3 +82,6 @@
 [submodule "bundle/vimango"]
 	path = bundle/vimango
 	url = git://github.com/tuxcanfly/ViMango.git
+[submodule "bundle/vim-pony"]
+	path = bundle/vim-pony
+	url = git://github.com/rainerborene/vim-pony.git
