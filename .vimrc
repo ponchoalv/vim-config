@@ -32,16 +32,25 @@ let g:solarized_termcolors=256
 
 colorscheme solarized
 
-set background=dark
+set background=light
 " Toggle dark/light background for solarized
 nmap <leader>tb :call ToggleSolarized()<CR>
 function! ToggleSolarized()
   if &background == "dark"
     colorscheme solarized
     set background=light
+    if &term =~ "xterm"
+      let &t_SI = "\<Esc>]12;orange\x7"
+      let &t_EI = "\<Esc>]12;gray\x7"
+    endif
+
   else
     colorscheme solarized
     set background=dark
+    if &term =~ "xterm"
+      let &t_SI = "\<Esc>]12;orange\x7"
+      let &t_EI = "\<Esc>]12;white\x7"
+    endif
   endif
 endfunc
 
@@ -64,7 +73,7 @@ endif
 " Tabs & Indentation
 "
 
-set expandtab     " converts tabs to spaces
+" set expandtab     " converts tabs to spaces
 set autoindent    " automatically copy indentation from previous line
 set smartindent   " indents one extra level according to current syntax
 " indents with tab = 4 spaces
@@ -75,7 +84,6 @@ set shiftwidth=2
 " define shortcuts ',2' and ',4' to change indentation easily:
 nmap <leader>2 :set tabstop=2<cr>:set shiftwidth=2<cr>
 nmap <leader>4 :set tabstop=4<cr>:set shiftwidth=4<cr>
-
 "
 " Interface
 "
@@ -87,7 +95,7 @@ set notitle                         " Don't show title in console title bar
 set novisualbell                    " Don't use the visual bell
 set wrap                            " Wrap lineource $MYVIMRC
 set showmatch                       " Show matching (){}[]
-set showbreak=...
+" set showbreak=...
 set linebreak
 set formatoptions=qrn1
 
@@ -96,7 +104,9 @@ set formatoptions=qrn1
 
 nmap <leader>tl :set list!<CR>
 set nolist
-" set listchars=tab:▸\ ,eol:¬,trail:·,extends:↷,precedes:↶
+set listchars=tab:▸\ ,eol:¬,trail:·,extends:↷,precedes:↶
+" set list
+" \\·
 
 "" Disable AutoClose plugin on markdown files"
 "autocmd FileType * :AutoCloseOn
@@ -119,7 +129,7 @@ nmap <leader>r :redraw!<cr>
 " Change cursor color depending on the mode
 if &term =~ "xterm"
   let &t_SI = "\<Esc>]12;orange\x7"
-  let &t_EI = "\<Esc>]12;white\x7"
+  let &t_EI = "\<Esc>]12;gray\x7"
 endif
 
 " Change statusbar color depending on the mode
@@ -165,7 +175,7 @@ autocmd FocusGained * let @z=@+
 map <silent><A-Right> :tabnext<CR>
 map <silent><A-Left> :tabprevious<CR>
 map <silent><A-x> :tabclose<CR>
-
+map <silent><A-o> :tabonly<CR>
 " Enable Code Folding
 set foldenable
 set foldmethod=syntax
