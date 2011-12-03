@@ -56,7 +56,7 @@ endfunc
 
 
 if has('gui_running')
-  set guifont=Monospace\ 11 " default monospace font
+  set guifont=Monospace\ 10 " default monospace font
   set lines=40
   set columns=120
   set guioptions-=m      " Remove menu bar
@@ -193,7 +193,7 @@ nmap <C-Down> ddp
 vmap <C-Up> xkP`[V`]
 vmap <C-Down> xp`[V`]
 
-set lazyredraw " do not redraw while running macros (much faster) (LazyRedraw)
+" set lazyredraw " do not redraw while running macros (much faster) (LazyRedraw)
 " set vb " blink instead beep
 
 
@@ -327,12 +327,14 @@ map <leader>t :CommandT<cr>
 let g:snips_author = 'Antoine Hérault <antoine.herault@gmail.com>'
 
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+" autocmd FileType jade set omnifunc=jadecomplete#CompleteJade
 
 " toggle NERDTree
 map <F4> :NERDTreeToggle<CR>
 
 " Ejecutar un archivo con nodejs <Shift> + e:
-map <buffer><S-e> :w<CR>:!/usr/bin/env node % <CR>
+map <buffer><S-E> :w<CR>:!/usr/bin/env node % <CR>
 
 " Tabularize
 " if exists(":Tabularize")
