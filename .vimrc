@@ -297,8 +297,8 @@ nnoremap <silent> <F9> :TlistToggle<CR>
 "Delimitmate
 au FileType * let b:delimitMate_autoclose = 1
 
-" Java script
-
+" Coffeescript
+au BufWritePost *.coffee silent CoffeeMake!
 
 "
 " Lusty
