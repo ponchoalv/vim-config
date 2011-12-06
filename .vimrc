@@ -23,16 +23,13 @@ set noequalalways
 set t_Co=256    " use 256 colors
 "colorscheme jellybeans
 
-
-
 let g:solarized_termcolors=256
 
-
-"set background='dark'
-
+"solarized colorscheme
+"let g:solarized_termtrans=1
+set background=light
 colorscheme solarized
 
-set background=light
 " Toggle dark/light background for solarized
 nmap <leader>tb :call ToggleSolarized()<CR>
 function! ToggleSolarized()
@@ -124,7 +121,7 @@ set iskeyword+=-,:
 nmap <leader>r :redraw!<cr>
 
 " Clear search highlight
-" nmap <silent> <leader>/ :let @/=""<cr>
+" nmap <silent> <leader><space> :let @/=""<cr>
 
 " Change cursor color depending on the mode
 if &term =~ "xterm"
@@ -135,6 +132,9 @@ endif
 " Change statusbar color depending on the mode
 au InsertEnter * hi StatusLine ctermfg=226 ctermbg=16
 au InsertLeave * hi StatusLine ctermfg=7 ctermfg=0
+
+"fomato de la statusline
+set statusline=\ %F%m%r%h\ %w\ %{fugitive#statusline()}\ \Linea:\ %l/%L:%c
 
 "
 " Command line
@@ -193,7 +193,7 @@ nmap <C-Down> ddp
 vmap <C-Up> xkP`[V`]
 vmap <C-Down> xp`[V`]
 
-" set lazyredraw " do not redraw while running macros (much faster) (LazyRedraw)
+set nolazyredraw " do not redraw while running macros (much faster) (LazyRedraw)
 " set vb " blink instead beep
 
 
@@ -297,6 +297,8 @@ nnoremap <silent> <F9> :TlistToggle<CR>
 "Delimitmate
 au FileType * let b:delimitMate_autoclose = 1
 
+" Java script
+
 
 "
 " Lusty
@@ -309,7 +311,6 @@ let g:LustyJugglerShowKeys = 0
 "
 " Command-T
 "
-
 let g:CommandTMaxFiles=30000        " Increase cache size
 map <leader>t :CommandT<cr>
 
@@ -326,15 +327,21 @@ map <leader>t :CommandT<cr>
 
 let g:snips_author = 'Antoine Hérault <antoine.herault@gmail.com>'
 
+"javascript
+"
+au FileType javascript setl fen
+au FileType javascript setl nocindent
+
 autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType css set omnifunc=csscomplete#CompleteCSS
 " autocmd FileType jade set omnifunc=jadecomplete#CompleteJade
 
+autocmd Filetype Javascript set colorcolumn=81
 " toggle NERDTree
 map <F4> :NERDTreeToggle<CR>
 
 " Ejecutar un archivo con nodejs <Shift> + e:
-map <buffer><S-E> :w<CR>:!/usr/bin/env node % <CR>
+map <buffer><S-A-e> :w<CR>:!/usr/bin/env node % <CR>
 
 " Tabularize
 " if exists(":Tabularize")
@@ -391,7 +398,7 @@ nnoremap <silent> <leader>R :call IndentFile()<CR>:let _s=@/<Bar>:%s/\s\+$//e<Ba
 noremap <Leader>mm mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
 "" Clear search highlight
-" nnoremap <leader><space> :noh<CR>
+nmap <leader><space> :noh<CR>
 
 "" Automatically change working dir to current buffer
 set autochdir
