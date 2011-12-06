@@ -56,7 +56,7 @@ endfunc
 
 
 if has('gui_running')
-  set guifont=Monospace\ 10 " default monospace font
+  set guifont="Meslo LG M DZ"\ 10 " default monospace font
   set lines=40
   set columns=120
   set guioptions-=m      " Remove menu bar
@@ -242,8 +242,8 @@ function! StripTrailingWhitespace()
 endfunction
 autocmd BufWritePre *.php,*.yml,*.xml,*.js,*.html,*.css :call StripTrailingWhitespace()
 
-map <F2> :call StripTrailingWhitespace()<CR>
-map! <F2> :call StripTrailingWhitespace()<CR>
+map <leader><F2> :call StripTrailingWhitespace()<CR>
+map! <leader><F2> :call StripTrailingWhitespace()<CR>
 
 "
 " Some sugar on my Keyboard
