@@ -2,35 +2,31 @@ call pathogen#infect()
 
 
 "
-" General behavior
+" Configuraciones generales.
 "
 
-set nocompatible                " Use vim defaults
-let mapleader=","               " Use the comma as leader
-set history=1000                " Increase history
-set nobackup                    " Do not backup files on overwrite
-set directory=~/.vim/tmp        " Directory to put swap file
+set nocompatible                " Cargar defaults de vim
+let mapleader=","               " usar coma como <leader>
+set history=1000                " aumentar history del redo/undo
+set nobackup                    " que no haga backup de arhivos termporales
+set directory=~/.vim/tmp        " directorio de archivos temporarios.
 set autochdir
-"" not let all windows keep the same height/width
-set noequalalways
+set noequalalways								"	que distintas ventanas puedan tener distintos tamaños.
 
 
 "
-" Coloration
+" Colores
 "
 
 
-set t_Co=256    " use 256 colors
-"colorscheme jellybeans
+set t_Co=256    " usar 256 colores en la terminal.
 
 let g:solarized_termcolors=256
 
-"solarized colorscheme
-"let g:solarized_termtrans=1
 set background=light
 colorscheme solarized
 
-" Toggle dark/light background for solarized
+" Cambiar entre dark/light de fondo para solarized
 nmap <leader>tb :call ToggleSolarized()<CR>
 function! ToggleSolarized()
   if &background == "dark"
@@ -51,145 +47,143 @@ function! ToggleSolarized()
   endif
 endfunc
 
-
-if has('gui_running')
-  set guifont="Meslo LG M DZ"\ 10 " default monospace font
-  set lines=40
-  set columns=120
-  set guioptions-=m      " Remove menu bar
-  set guioptions-=T      " Remove toolbar
-  set guioptions+=LlRrb  " Sacar scroll de ambos lados
-  set guioptions-=LlRrb
-  "    set guioptions+=lrb " Add/Remove right-hand scroll bar
-  "    set guioptions-=lrb " Add/Remove right-hand scroll bar
-  "    set guioptions-=l " Remove left-hand scroll bar
-
-endif
-
-"
-" Tabs & Indentation
-"
-
-" set expandtab     " converts tabs to spaces
-set autoindent    " automatically copy indentation from previous line
-set smartindent   " indents one extra level according to current syntax
-" indents with tab = 4 spaces
-set tabstop=2
-set shiftwidth=2
-" fixme: should use softtabstop=4 instead of expandtab and setting tabstop
-
-" define shortcuts ',2' and ',4' to change indentation easily:
-nmap <leader>2 :set tabstop=2<cr>:set shiftwidth=2<cr>
-nmap <leader>4 :set tabstop=4<cr>:set shiftwidth=4<cr>
-"
-" Interface
-"
-
-set ls=2                            " Always show the status line
-set ruler                           " Show cursor position
-set number                          " Show line numbers
-set notitle                         " Don't show title in console title bar
-set novisualbell                    " Don't use the visual bell
-set wrap                            " Wrap lineource $MYVIMRC
-set showmatch                       " Show matching (){}[]
-" set showbreak=...
-set linebreak
-set formatoptions=qrn1
-
-" Display invisible characters.
-" " Use the same symbols as TextMate for tabstops and EOLs
-
-nmap <leader>tl :set list!<CR>
-set nolist
-set listchars=tab:▸\ ,eol:¬,trail:·,extends:↷,precedes:↶
-" set list
-" \\·
-
-"" Disable AutoClose plugin on markdown files"
-"autocmd FileType * :AutoCloseOn
-"autocmd FileType markdown :AutoCloseOff
-"autocmd FileType markdown :set spell
-
-
-"set listchars=eol:?,tab:>-,trail:~,extends:>,precedes:<
-
-set complete+=k
-" for XSL / CSS - completition works great
-set iskeyword+=-,:
-
-" Redraw screen
-nmap <leader>r :redraw!<cr>
-
-" Clear search highlight
-" nmap <silent> <leader><space> :let @/=""<cr>
-
-" Change cursor color depending on the mode
+" Cambiar el color del cursor dependiento del tipo de ventana.
 if &term =~ "xterm"
   let &t_SI = "\<Esc>]12;orange\x7"
   let &t_EI = "\<Esc>]12;gray\x7"
 endif
 
-" Change statusbar color depending on the mode
+"
+" Configuración de la interfaz grafica
+"
+
+if has('gui_running')
+  set guifont="Meslo LG M DZ"\ 10 " Fuente disponible en github.
+  set lines=40
+  set columns=120
+  set guioptions-=m      " Sacar menu bar
+  set guioptions-=T      " Sacar toolbar
+  set guioptions+=LlRrb  " Sacar scroll de ambos lados
+  set guioptions-=LlRrb
+endif
+
+"
+" Tabs & Indentación
+"
+
+set autoindent    " copiar indentación de la linea anterior
+set smartindent   " dependiendo de la sintaxis agregar un niver de indentación.
+set tabstop=2
+set shiftwidth=2
+
+" shortcuts ',2' y ',4' para cambiar indentación rápido:
+nmap <leader>2 :set tabstop=2<cr>:set shiftwidth=2<cr>
+nmap <leader>4 :set tabstop=4<cr>:set shiftwidth=4<cr>
+
+
+"
+" Interface
+"
+
+set ls=2                            " Mostrar siempre la barra status
+set ruler                           " Mostrar posicion del cursor
+set number                          " mostrar lineas del documento
+set notitle                         " Sacar titulo en modo no visual
+set novisualbell                    " que no use la campana visual.
+set wrap                            " wrap de lineas.
+set showmatch                       " muestra el matcheo de (){}[]
+
+
+set linebreak
+set formatoptions=qrn1
+
+" Mostrar los caracateres invisibles.
+" Los mismos que textmate.
+
+nmap <leader>tl :set list!<CR>
+set list
+set listchars=tab:▸\ ,trail:·
+
+set complete+=k
+
+" para completar codigo en  XSL / CSS
+set iskeyword+=-,:
+
+" Redibujar pantalla
+nmap <leader>r :redraw!<cr>
+
+
+
+" Cambiar los colores de la barra de estado segun el modo
 au InsertEnter * hi StatusLine ctermfg=226 ctermbg=16
 au InsertLeave * hi StatusLine ctermfg=7 ctermfg=0
 
-"fomato de la statusline
+" Fomato de la statusline
 set statusline=\ %F%m%r%h\ %w\ %{fugitive#statusline()}\ \Linea:\ %l/%L:%c
 
 "
-" Command line
+" Linea de comandos
 "
 
-set wildmenu                        " Better completion
-set wildmode=list:longest           " BASH style completion
+set wildmenu                        " mejor completion
+set wildmode=list:longest           " estilo BASH para completado
 set wildignore+=*.o,*.obj,.git,*.rbc,*.class,.svn,test/fixtures/*,vendor/gems/*
+set completeopt=longest,menuone
+
+" Ejecutar un archivo con nodejs <Shift><alt>+ e:
+map <buffer><S-A-e> :w<CR>:!/usr/bin/env node % <CR>
 
 
-"Set magic on, for regular expressions
+" Cambiar automaticamente el directorio de trabajo al directorio donde esta el
+" archivo
+set autochdir
+
+"
+" Navegación & Viewport
+"
+
+set scrolloff=5       " por lo menos  5 lineas en el buffer cuando muevo el cursor
+set sidescrolloff=5   " y 5 columnas de contenido.
+set hidden                          " permite moverse entre buffers modificados (ocultos)
+set backspace=indent,eol,start      " Mejora el comportamiento de la tecla backspace
+
+" Set magic on, para las expresiones regulares.
 set magic
 
-
-
 "
-" Navigation & Viewport
+" Copy/Paste
 "
 
-set scrolloff=5       " at least 5 lines of context when moving cursor
-set sidescrolloff=5   " and 5 columns of contet
-set hidden                          " Allow switch beetween modified buffers
-set backspace=indent,eol,start      " Improve backspacing
-
-"copy
+" copiar (en modo visual)
 vmap <F7> "+ygv"zy`>
-"paste (Shift-F7 to paste after normal cursor, Ctrl-F7 to paste over visual selection)
+" Pegar (Shift-F7 para pegar después del cursor en modo normal, Ctrl-F7 para pegar sobre la selección visual.)
 nmap <F7> "zgP
 nmap <S-F7> "zgp
 imap <F7> <C-r><C-o>z
 vmap <C-F7> "zp`]
 cmap <F7> <C-r><C-o>z
-"copy register
 
+" Registrar copia (clipboard)
 autocmd FocusGained * let @z=@+
 
-" tabbing
+" Solapas (movimiento y cerrado)
 map <silent><A-Right> :tabnext<CR>
 map <silent><A-Left> :tabprevious<CR>
 map <silent><A-x> :tabclose<CR>
 map <silent><A-o> :tabonly<CR>
-" Enable Code Folding
+
+
+" Habilitar Code Folding
 set foldenable
 set foldmethod=syntax
 
 
-"http://vim.wikia.com/wiki/Make_Vim_completion_popup_menu_work_just_like_in_an_IDE
-set completeopt=longest,menuone
-
-"Bubble single lines (kicks butt)
-"http://vimcasts.org/episodes/bubbling-text/
+" mover solo lineas
+" http://vimcasts.org/episodes/bubbling-text/
 nmap <C-Up> ddkP
 nmap <C-Down> ddp
 
-"Bubble multiple lines
+" Mover muchas lineas
 vmap <C-Up> xkP`[V`]
 vmap <C-Down> xp`[V`]
 
@@ -198,32 +192,42 @@ set nolazyredraw " do not redraw while running macros (much faster) (LazyRedraw)
 
 
 
-" Faster viewport scrolling
+" Scrollear con mayor velocidad
 nnoremap <C-e> 3<C-e>
 nnoremap <C-y> 3<C-y>
 nnoremap <C-j> 3j
 nnoremap <C-k> 3k
 
 "
-" Chars
+" Caracteres
 "
 
 set encoding=utf-8
 
 "
-" Syntax & File types
+" Syntax & tipos de archivos
 "
 
-syntax enable                       " Enable syntax highlighting
+syntax enable                       " Habilitar colores para la sintxis
 syntax on
-filetype on           " enable file type detection
-filetype plugin on    " load plugins specific to file type
-filetype indent on    " ... and indentation too
+filetype on           " Habilitar detección del archivo
+filetype plugin on    " Activar plugins
+filetype indent on    " Activar indentación (fucking neoanglosimo)
 
-" Use the htmljinja syntax for twig files
-au BufNewFile,BufRead *.twig setf htmljinja
+"
+" Javascript
+"
+au FileType javascript setl fen
+au FileType javascript setl nocindent
 
-" Highlight trailing whitespaces
+autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
+autocmd FileType css set omnifunc=csscomplete#CompleteCSS
+" autocmd FileType jade set omnifunc=jadecomplete#CompleteJade
+
+autocmd Filetype Javascript set colorcolumn=81
+
+" mostrar espacios en blanco con un color.
+"
 highlight ExtraWhitespace ctermbg=red guibg=red
 match ExtraWhitespace /\s\+$/
 autocmd BufWinEnter * match ExtraWhitespace /\s\+$/
@@ -231,7 +235,7 @@ autocmd InsertEnter * match ExtraWhitespace /\s\+\%#\@<!$/
 autocmd InsertLeave * match ExtraWhitespace /\s\+$/
 autocmd BufWinLeave * call clearmatches()
 
-" automatically remove trailing whitespace before write
+" Borrar espacios en blancos.
 function! StripTrailingWhitespace()
   normal mZ
   %s/\s\+$//e
@@ -246,50 +250,49 @@ map <leader><F2> :call StripTrailingWhitespace()<CR>
 map! <leader><F2> :call StripTrailingWhitespace()<CR>
 
 "
-" Some sugar on my Keyboard
+" mapeo chanchero para trabajar con php (en modo insert)
 "
-
-" in insert mode (imap), some useful shortcuts.
 imap jj ->
 imap kk \
 imap hh $this->
 
-"Set Search options highlight, and wrap search
-set hls is " highlight search text throughout the document.
-set wrapscan " wrap the scan around the document
-set ic "ignore case in search
+" Mostrar resaltado de busqueda y hacer wrap (acoplar) los resultados
+set hls is " resaltar texto buscado
+set wrapscan " hacer el wrap en texto buscado
+set ic " ignorar myusculas/minusuclas
+
+
 
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 "
-"      PLUGINS CONFIGURATION
+"      Confiuración de plugins
 "
 " ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-
-
-
-" Load bundles help & code
-" silent! call pathogen#helptabs()
-" silent! call pathogen#runtime_append_all_bundles()
 
 "
 " Ctags
 "
 
-" Explore tags for the word under the cursor
+" Explorar tags para la palabra debajo del cursor
 map <C-l> <C-]>
-" Back to previous location after browsing tags
+
+" Volver a la posicion inicial despues de buscar en los tags.
 map <C-h> <C-T>
-" Jump to next tag match
+
+" Saltar al siguiente matched tag
 map ]t :tnext<CR>
-" Jump to previous tag match
+
+" Saltar al tag matcheado previamente.
 map [t :tprevious<CR>
-" Open tag command
+
+" Abrior tag (comando)
 map <C-T> :tag
 let g:Tlist_Ctags_Cmd = 'ctags'
-" Rebuild tag index
+
+" Reconstruir el indice de ctags.
 nnoremap <silent> <C-F7> :silent !ctags -h ".php" --PHP-kinds=+cf --recurse --exclude="*/cache/*" --exclude="*/logs/*" --exclude="*/data/*" --exclude="\.git" --exclude="\.svn" --languages=PHP &<cr>:CommandTFlush<cr>
-" TagList
+
+" lista de tags (taglist)
 let Tlist_Show_One_File = 1
 let Tlist_Sort_Type = "name"
 nnoremap <silent> <F9> :TlistToggle<CR>
@@ -304,22 +307,15 @@ au BufWritePost *.coffee silent CoffeeMake!
 " Lusty
 "
 
-" map <leader>lp :LustyJugglePrevious<cr>
 map <leader>lp :LustyBufferExplorer <cr>
 let g:LustyJugglerShowKeys = 0
 
 "
 " Command-T
 "
-let g:CommandTMaxFiles=30000        " Increase cache size
+let g:CommandTMaxFiles=30000        " Aumentar tamaño cache (acelera un toque la busqueda)
 map <leader>t :CommandT<cr>
 
-"
-" Ack
-"
-
-" let g:ackprg = 'ack-grep -H --nocolor --nogroup --column --type-add html=twig --ignore-dir=cache --ignore-dir=logs'
-" nmap <leader>a :Ack
 
 "
 " Snipmate
@@ -327,55 +323,38 @@ map <leader>t :CommandT<cr>
 
 let g:snips_author = 'Antoine Hérault <antoine.herault@gmail.com>'
 
-"javascript
-"
-au FileType javascript setl fen
-au FileType javascript setl nocindent
-
-autocmd FileType javascript set omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-" autocmd FileType jade set omnifunc=jadecomplete#CompleteJade
-
-autocmd Filetype Javascript set colorcolumn=81
-" toggle NERDTree
+" Mostrar NERDTree (arbol con archivos del directorio de trabajo
 map <F4> :NERDTreeToggle<CR>
 
-" Ejecutar un archivo con nodejs <Shift> + e:
-map <buffer><S-A-e> :w<CR>:!/usr/bin/env node % <CR>
 
-" Tabularize
-" if exists(":Tabularize")
+" Tabularize  sirve para alinear el sigo igual o : en este caso.
 nmap <Leader>ji :Tabularize /=<CR>
 vmap <Leader>ji :Tabularize /=<CR>
 nmap <Leader>jd :Tabularize /:\zs<CR>
 vmap <Leader>jd :Tabularize /:\zs<CR>
-" endif
 
 
-" autocomplete php
+" Autocomplete php
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 
-"autocomplete coffee script
+" Autocomplete coffee script
 autocmd BufWritePost *.coffee silent CoffeeMake! -b | cwindow
 
 au Filetype php exec('set dictionary=~/.vim/syntax/ci-reactor-2.0.dict')
 au Filetype php set complete+=k
 
 
-" config snipets para django
+" Configuración snipets para django
 "
 autocmd FileType python set ft=python.django " For SnipMate
 autocmd FileType html set ft=htmldjango.html " For SnipMate
 
-"" Disable AutoClose plugin on markdown files"
-"autocmd FileType * :AutoCloseOn
-"autocmd FileType markdown :AutoCloseOff
-"autocmd FileType markdown :set spell
-
-"Funciones
 "
-"" Indent files. Use plugin when filetype is Javascript.
+" Funciones
+"
+
+" Indentar archivos. Usar plugin cuando el filetype es Javascript.
 function! IndentFile()
   if &filetype == 'javascript'
     let l = line('.')
@@ -390,15 +369,13 @@ function! IndentFile()
   endif
 endfunction
 
-" Reindent Code, strip trailing whitespace and go back to the line the cursor
-" was
+" Reindentar Codigo, borrar espacios en blanco y volver donde estaba la linea del cursor
 nnoremap <silent> <leader>R :call IndentFile()<CR>:let _s=@/<Bar>:%s/\s\+$//e<Bar>:let @/=_s<Bar>:nohl<CR>
 
-"" Remove the Windows ^M - when the encodings gets messed up
+" Borrar el simbolo ^M tipico de Windows -
 noremap <Leader>mm mmHmt:%s/<C-V><cr>//ge<cr>'tzt'm
 
-"" Clear search highlight
+" Borrar el resaltado de la busqueda
 nmap <leader><space> :noh<CR>
 
-"" Automatically change working dir to current buffer
-set autochdir
+
