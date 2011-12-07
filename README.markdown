@@ -1,7 +1,7 @@
 Acerca
 =====
 
-Esta configuración de vim está pensada para trabajar principalmente con php, más adelante voy a agregarle más funciones para trabajar con python, por ejempo vimango, snnipets para django y alguna cosita más... Casi todas las cosas las robe de otras configuraciones que me gustaron. Sugerencias para mejorar o simplemente que sientan la necesidad de decirmelas escribirme a: ponchoalv@gmail.com
+Esta configuración de vim está pensada para trabajar principalmente con php, Javascript y python. Para desarrollo web tambíen sirve tiene compatibilidad para less, stylus, css3, colores para css3, coffeescript y nodejs.
 
 Instalación
 ============
@@ -17,8 +17,10 @@ Create a symbolic link of the .vimrc file into your home directory:
 		$ ln -s ~/.vim/.vimrc ~/.vimrc
 
 El plugin commandt lo tienen que compilar, incluye las instrucciones, se activa con las teclas:
-		$,t
+
+		$ ,t
 
 El plugin vimango (para navegación entre archivos de un proyecto django) necesita que copies vimango.py al path de python.
 
+La fuente que uso es Meslo, deje el repositorio como submodule, entrar ahí para bajarsela.
 Suerte! :D
