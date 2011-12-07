@@ -8,12 +8,17 @@ Instalación
 
 Clone the repository:
 
-    $ git clone git://github.com/ponchoalv/vim-config.git ~/.vim
-    $ git submodule init
-    $ git submodule update
+		$ git clone git://github.com/ponchoalv/vim-config.git ~/.vim
+		$ git submodule init
+		$ git submodule update
 
 Create a symbolic link of the .vimrc file into your home directory:
 
-    $ ln -s ~/.vim/.vimrc ~/.vimrc
+		$ ln -s ~/.vim/.vimrc ~/.vimrc
 
-GO PRO PLAY HARD!
+El plugin commandt lo tienen que compilar, incluye las instrucciones, se activa con las teclas:
+		$,t
+
+El plugin vimango (para navegación entre archivos de un proyecto django) necesita que copies vimango.py al path de python.
+
+Suerte! :D
