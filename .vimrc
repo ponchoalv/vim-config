@@ -100,9 +100,10 @@ set formatoptions=qrn1
 " Mostrar los caracateres invisibles.
 " Los mismos que textmate.
 
-nmap <leader>tl :set list!<CR>
-set list
+nmap <C-t-l> :set list!<CR>
+set nolist
 set listchars=tab:▸\ ,trail:·
+
 
 set complete+=k
 
@@ -338,6 +339,7 @@ vmap <Leader>jd :Tabularize /:\zs<CR>
 autocmd FileType php set omnifunc=phpcomplete#CompletePHP
 autocmd FileType html set omnifunc=htmlcomplete#CompleteTags
 
+autocmd FileType c set tabstop=4
 " Autocomplete coffee script
 autocmd BufWritePost *.coffee silent CoffeeMake! -b | cwindow
 
